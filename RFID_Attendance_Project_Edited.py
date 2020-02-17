@@ -161,6 +161,21 @@ def checkAttendanceLoop():
                 inputDateTime = getTime()
                 checkAttendance(mycursor, str(id), inputClassID, inputDateTime)
     selectData(mycursor, "Attendance_Table")
+    
+def classTable_Fields():
+    print("\nClass_Table's Fields")
+    print("   - ID")
+    print("   - Name")
+    print("   - Teacher")
+    print("-------------------------------------------------------------\n")
+    
+def studentTable_Fields():
+    print("\nStudent_Table's Fields")
+    print("   - ID")
+    print("   - firstName")
+    print("   - lastName")
+    print("   - nickName")
+    print("-------------------------------------------------------------\n")
         
 #createDatabase(mycursor, "Attendance_System")
         
@@ -186,7 +201,7 @@ ansArray = []
 factor = 0
 
 deleteData(mycursor, "Attendance_Table", "classID", "1")
-deleteData(mycursor, "Attendance_Table", "classID", "6")
+deleteData(mycursor, "Attendance_Table", "classID", "4")
 
 print("[1] Check Attendance")
 print("[2] Edit Tables")
@@ -226,29 +241,37 @@ elif askInput == "2":
         askInput = input("\nEnter the number: ")
         if askInput == "1":
             tableName = "Student_Table"
-            print("   - ID")
-            print("   - firstName")
-            print("   - lastName")
-            print("   - nickName")
-            print("The data will be removed according to the field and the value")
-            desireField = input("\nEnter the field you want to use to remove data: ")
-            inputVal = input("Enter the value: ")
+            studentTable_Fields()
         elif askInput == "2":
             tableName = "Class_Table"
-            print("   - ID")
-            print("   - Name")
-            print("   - Teacher")
-            print("The data will be removed according to the field and the value")
-            desireField = input("\nEnter the field you want to use to remove data: ")
-            inputVal = input("Enter the value: ")
+            classTable_Fields()
+        print("The data will be removed according to the field and the value")
+        desireField = input("\nEnter the field you want to use to remove data: ")
+        inputVal = input("Enter the value: ")
         deleteData(mycursor, tableName, desireField, inputVal)
     elif askInput == "3":
         print("[1] Students")
-        print("[2] Classes") 
+        print("[2] Classes")
+        askInput = input("\nEnter the number: ")
+        if askInput == "1":
+            tableName = "Student_Table"
+            studentTable_Fields()
+        elif askInput == "2":
+            tableName = "Class_Table"
+            classTable_Fields()
+        print("The data will be updated according to the field and the value")
+        desireField = input("\nEnter the field you want to use to update data: ")
+        oldValue = input("Change the data in " + desireField + " from ")
+        newValue = input("to ")
+        updateTable(mycursor, tableName, desireField, newValue, oldValue)
 
 print("Done!")
 
     
+
+
+
+
 
 
 
