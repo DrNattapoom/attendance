@@ -266,12 +266,3 @@ elif askInput == "2":
         updateTable(mycursor, tableName, desireField, newValue, oldValue)
 
 print("Done!")
-
-    
-
-
-
-
-
-
-
