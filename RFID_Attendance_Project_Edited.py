@@ -72,7 +72,19 @@ def getClassID(inputName):
     sql = "SELECT * FROM Class_Table WHERE Name = \"" + str(inputName) + "\""
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
-    return myresult[0][0]
+    if len(myresult) > 0:
+        return myresult[0][0]
+    else:
+        return "Subject not found"
+    
+def getStuName(id):
+    sql = "SELECT * FROM Student_Table WHERE ID = \"" + str(id) + "\""
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    if len(myresult) > 0:
+        return myresult[0][1]
+    else:
+        return "Student not found"
         
 def insertStudent_Repeat_notAllow(mycursor, inputID, inputFirstName, inputLastName, inputNickName):
     sql = "SELECT * FROM Student_Table WHERE ID = \"" + inputID + "\""
@@ -136,7 +148,13 @@ def deleteData(mycursor, tableName, desireField, inputVal):
 def checkAttendanceLoop():
     FinalState = False
     className = input("Enter the class name: ")
-    print("Start Checking Attendance... ")
+    lcd.write_string("Class name: \n\r" + className)
+    if getClassID(className) != "Subject not found":
+        print("Start Checking Attendance... ")
+        lcd.write_string("\n\rStart Checking... ")
+    else:
+        print("Subject not found")
+        FinalState = True
     while FinalState == False:
         if button.is_pressed:
             print("Pressed")
@@ -160,6 +178,9 @@ def checkAttendanceLoop():
                 inputClassID = getClassID(className)
                 inputDateTime = getTime()
                 checkAttendance(mycursor, str(id), inputClassID, inputDateTime)
+                lcd.clear()
+                lcd.write_string("Checking...")
+            lcd.write_string("\n\rThank you " + getStuName(str(id)))
     selectData(mycursor, "Attendance_Table")
     
 def classTable_Fields():
@@ -195,13 +216,14 @@ insertClass_Repeat_notAllow(mycursor, "Physical Education", "Mr. Jame")
 
 selectData(mycursor, "Class_Table")
 selectData(mycursor, "Student_Table")
+selectData(mycursor, "Attendance_Table")
 
 questArray = ["First Name: ", "Last Name: ", "Nick Name: "]
 ansArray = []
 factor = 0
 
-deleteData(mycursor, "Attendance_Table", "classID", "1")
-deleteData(mycursor, "Attendance_Table", "classID", "4")
+#deleteData(mycursor, "Attendance_Table", "classID", "Subject not found")
+#deleteData(mycursor, "Attendance_Table", "classID", "4")
 
 print("[1] Check Attendance")
 print("[2] Edit Tables")
@@ -266,3 +288,9 @@ elif askInput == "2":
         updateTable(mycursor, tableName, desireField, newValue, oldValue)
 
 print("Done!")
+
+    
+
+
+
+

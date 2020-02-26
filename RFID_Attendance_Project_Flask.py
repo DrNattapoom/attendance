@@ -104,6 +104,10 @@ def home():
         height: 35px;
     }
     
+    th:hover, td:hover {
+        background-color: #333;
+    }
+    
     th {height: 50px;}
     
     </style>
