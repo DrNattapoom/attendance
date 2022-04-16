@@ -255,8 +255,7 @@ elif askInput == "2":
         elif askInput == "2":
             inputName = input("Enter the class name: ")
             inputTeacher = input("Enter the teacher name: ")
-            insertClass_Repeat_notAllow(mycursor, inputName, inputTeacher)
-            
+            insertClass_Repeat_notAllow(mycursor, inputName, inputTeacher)      
     elif askInput == "2":
         print("[1] Students")
         print("[2] Classes")
@@ -288,9 +287,3 @@ elif askInput == "2":
         updateTable(mycursor, tableName, desireField, newValue, oldValue)
 
 print("Done!")
-
-    
-
-
-
-
